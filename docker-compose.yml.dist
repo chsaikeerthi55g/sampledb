@@ -1,14 +1,14 @@
 # sampledb docker-compose configuration file
 # use: "docker-compose up -d" to start containers
-# https://github.com/sciapp/sampledb
+# https://github.com/chsaikeerthi55g/sampledb
 # Note: you will need to edit some values below to run it in production!
 version: '3'
 
 services:
   web:
-    image: sciapp/sampledb:0.20.0
+    image: chsaikeerthi55g/latest:latest
     restart: always
-    container_name: sampledb
+    container_name: sampledbm
     # Note: this config option works with docker-compose version >1.27
     # If you are using an older docker-compose and cannot update to a newer version, you can use the short syntax instead
     # See: https://docs.docker.com/compose/compose-file/#depends_on
@@ -23,7 +23,7 @@ services:
         - SAMPLEDB_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://postgres:password@sampledb-postgres:5432/postgres
         - SAMPLEDB_FILE_STORAGE_PATH=/home/sampledb/files/
         # uncomment the line below for development purposes
-        #- FLASK_ENV=development
+        - FLASK_ENV=development
     ports:
         # if you want sampledb to run on a different port, change the first number
         # host:container
@@ -32,6 +32,7 @@ services:
         # this is where you will keep the uploaded files persistently
         # host:container
         - ./files:/home/sampledb/files
+        - ./sampledb:/home/sampledb/sampledb
     networks:
       - sampledb-net
 
